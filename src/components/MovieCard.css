@@ -1,0 +1,10 @@
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    width: calc(20% - 10px);
+    height: 450px;
+    box-shadow: 0 2px 4px black; 
+    overflow: hidden;
+    background-color: #000000;
+    margin: 5px;
+}

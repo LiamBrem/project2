@@ -15,6 +15,7 @@
     cursor: pointer;
 }
 
+
 .movie-card img {
     width: 100%;
     object-fit: cover;
@@ -36,4 +37,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;        
+}
+
+.movie-rating{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    overflow: hidden;
 }

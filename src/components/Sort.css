@@ -1,0 +1,14 @@
+.sort-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  margin-right: 20px;
+  margin-left: auto;
+}
+
+.sort-container select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

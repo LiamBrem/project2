@@ -12,6 +12,10 @@
   padding: 20px;
 }
 
+.controls{
+  display: flex;
+}
+
 @media (max-width: 600px) {
   .movie-card {
     width: 100%;

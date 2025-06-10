@@ -27,23 +27,42 @@ const fetchData = async (apiKey, pageNumber, searchString) => {
   return data;
 };
 
-const MovieList = ({ searchCriteria }) => {
+const sortMovies = (movies, sortCriteria) => {
+  if (sortCriteria === "title") {
+    return [...movies].sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortCriteria === "release_date") {
+    return [...movies].sort(
+      (a, b) => new Date(a.release_date) - new Date(b.release_date)
+    );
+  } else if (sortCriteria === "rating") {
+    return [...movies].sort((a, b) => b.vote_average - a.vote_average);
+  }
+  return movies;
+};
+
+const MovieList = ({ searchCriteria, sortCriteria }) => {
   const [movieData, setMovieData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
 
+  console.log("sortCriteria", sortCriteria);
+
   useEffect(() => {
-    setMovieData([]);
+   setMovieData([]);
     setPageNumber(1);
   }, [searchCriteria]);
 
   useEffect(() => {
+    setMovieData((movieData) => sortMovies(movieData, sortCriteria));
+  }, [sortCriteria]);
+
+  useEffect(() => {
     const apiKey = import.meta.env.VITE_API_KEY;
     fetchData(apiKey, pageNumber, searchCriteria)
-      .then((data) =>
-        setMovieData((prev) =>
-          pageNumber === 1 ? data.results : [...prev, ...data.results]
-        )
-      )
+      .then((data) => {
+        const combinedMovieArrays =
+          pageNumber === 1 ? data.results : [...movieData, ...data.results];
+        setMovieData(sortMovies(combinedMovieArrays, sortCriteria));
+      })
       .catch((error) => console.error(error));
   }, [pageNumber, searchCriteria]);
 

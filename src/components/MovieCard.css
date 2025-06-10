@@ -1,10 +1,39 @@
 .movie-card {
     display: flex;
     flex-direction: column;
-    width: calc(20% - 10px);
-    height: 450px;
+    width: calc(20% - 20px);
+    max-height: calc(50% - 10px);
+    
     box-shadow: 0 2px 4px black; 
     overflow: hidden;
-    background-color: #000000;
-    margin: 5px;
+    background-color: #313131;
+    margin: 10px;
+    transition: all .2s ease-in-out;
+
+    border: 5px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.movie-card img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    border: 5px solid rgb(255, 255, 255);
+    
+}
+
+.movie-title {
+    height: 2.5em;              
+    line-height: 1.2em;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;        
 }

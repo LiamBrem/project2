@@ -4,7 +4,7 @@ import "./MovieList.css";
 
 const fetchData = async (apiKey) => {
   const url =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
   const options = {
     method: "GET",
     headers: {
@@ -23,6 +23,7 @@ const fetchData = async (apiKey) => {
 
 const MovieList = ({ searchCriteria }) => {
   const [movieData, setMovieData] = useState([]);
+  
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_API_KEY_;

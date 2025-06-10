@@ -36,8 +36,12 @@ const sortMovies = (movies, sortCriteria) => {
     );
   } else if (sortCriteria === "rating") {
     return [...movies].sort((a, b) => b.vote_average - a.vote_average);
+  } else if (sortCriteria === "default") {
+    return movies; // Return unsorted movies for default option
+  } else {
+    console.warn("Unknown sort criteria:", sortCriteria);
+    return movies; // Fallback to unsorted movies
   }
-  return movies;
 };
 
 const MovieList = ({ searchCriteria, sortCriteria }) => {
@@ -52,25 +56,22 @@ const MovieList = ({ searchCriteria, sortCriteria }) => {
   }, [searchCriteria]);
 
   useEffect(() => {
-    setMovieData((movieData) => sortMovies(movieData, sortCriteria));
-  }, [sortCriteria]);
-
-  useEffect(() => {
     const apiKey = import.meta.env.VITE_API_KEY;
     fetchData(apiKey, pageNumber, searchCriteria)
       .then((data) => {
         const combinedMovieArrays =
           pageNumber === 1 ? data.results : [...movieData, ...data.results];
-        setMovieData(sortMovies(combinedMovieArrays, sortCriteria));
+        setMovieData((movieData) => combinedMovieArrays);
       })
       .catch((error) => console.error(error));
   }, [pageNumber, searchCriteria]);
 
+  const displayMovieData = sortMovies(movieData, sortCriteria);
+
   return (
     <div>
-      <h1>Movie List</h1>
       <div className="movie-list">
-        {movieData.map((movie) => (
+        {displayMovieData.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>

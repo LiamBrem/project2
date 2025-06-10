@@ -2,3 +2,29 @@
     display:flex;
     flex-wrap: wrap;
 }
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.load-more-button {
+    display: block;
+    width: 10%;
+    padding: 1rem;
+    margin: 1rem auto;
+    background-color: #ba0303;
+    color: white;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.load-more-button:hover {
+    background-color: #7b0000;
+}
+
+

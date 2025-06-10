@@ -11,8 +11,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="controls" style={{ margin: '20px' }}>
-        <Search />
+      <div className="controls" >
+        <Search onSearch={setSearch}/>
       </div>
       <MovieList searchCriteria={search} sortCriteria={sort} />
     </div>

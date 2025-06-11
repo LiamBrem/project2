@@ -23,9 +23,12 @@ const getRuntime = async (id) => {
 
 };
 
+
+// This calls the API each time the modal is opened
+// Since it returns the same object every time, it may be useful to only call it once
 const getGenres = async (genreIds) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en"; // call once
+  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en"; 
   const options = {
     method: "GET",
     headers: {
@@ -46,7 +49,7 @@ const getGenres = async (genreIds) => {
       result.push(genre.name);
     }
   });
-  return result.length > 0 ? result.join(", ") : "Unknown Genre";
+  return result.length > 0 ? result.join(", ") : "Unknown Genre"; // return a string of genres
 };
 
 const Modal = ({ show, onClose, movie }) => {
@@ -65,13 +68,14 @@ const Modal = ({ show, onClose, movie }) => {
     if (show) {
       getRuntime(movie.id)
         .then(setRuntime)
-        .catch(() => setGenres("Unknown Genre"));
+        .catch(() => setRuntime("Unknown Runtime"));
     }
-  }, [show]);
+  }, [show, movie]);
 
   if (!show) {
     return null; // don't render anything if displayModal is false
   }
+
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>

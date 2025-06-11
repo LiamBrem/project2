@@ -5,7 +5,7 @@ const Sort = ({ value, onChange }) => {
   return (
     <div className="sort-container">
       <select value={value} onChange={(e) => onChange(e.target.value)}>
-        <option value="default">---</option>
+        <option value="default">Sort (Default)</option>
         <option value="title">Title (a-z)</option>
         <option value="release_date">Release Date</option>
         <option value="rating">Rating</option>

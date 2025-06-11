@@ -20,15 +20,13 @@ const getRuntime = async (id) => {
   const data = await response.json();
 
   return data.runtime ? `${data.runtime} minutes` : "Unknown Runtime";
-
 };
-
 
 // This calls the API each time the modal is opened
 // Since it returns the same object every time, it may be useful to only call it once
 const getGenres = async (genreIds) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en"; 
+  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
   const options = {
     method: "GET",
     headers: {
@@ -52,9 +50,32 @@ const getGenres = async (genreIds) => {
   return result.length > 0 ? result.join(", ") : "Unknown Genre"; // return a string of genres
 };
 
+const getTrailerURL = async (id) => {
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+  };
+
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Failed to fetch movie trailer");
+  }
+  const data = await response.json();
+
+  // Find the first trailer in the results
+  const trailer = data.results.find((video) => video.type === "Trailer");
+  return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
+};
+
 const Modal = ({ show, onClose, movie }) => {
   const [genres, setGenres] = React.useState("Loading...");
   const [runtime, setRuntime] = React.useState("Loading...");
+  const [trailerURL, setTrailerURL] = React.useState(null);
 
   useEffect(() => {
     if (show && movie?.genre_ids) {
@@ -69,6 +90,9 @@ const Modal = ({ show, onClose, movie }) => {
       getRuntime(movie.id)
         .then(setRuntime)
         .catch(() => setRuntime("Unknown Runtime"));
+      getTrailerURL(movie.id)
+        .then(setTrailerURL)
+        .catch(() => setTrailerURL(null));
     }
   }, [show, movie]);
 
@@ -102,6 +126,18 @@ const Modal = ({ show, onClose, movie }) => {
           <p>
             <strong>Runtime:</strong> {runtime}
           </p>
+          {trailerURL ? (
+            <iframe
+              src={trailerURL.replace("watch?v=", "embed/")}
+              title="Movie Trailer"
+              width="100%"
+              height="315"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
     </>

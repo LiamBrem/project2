@@ -68,11 +68,11 @@ const MovieList = ({ searchCriteria, sortCriteria }) => {
 
   return (
     <div>
-      <div className="movie-list">
+      <section className="movie-list">
         {displayMovieData.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
-      </div>
+      </section>
       <div className="button-wrapper">
         <button
           className="load-more-button"

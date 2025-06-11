@@ -14,7 +14,7 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <div className="movie-card" onClick={() => setDisplayModal(true)}>
+      <article className="movie-card" onClick={() => setDisplayModal(true)}>
         <h1 className="movie-title">{movie.title}</h1>
         <h4
           className="movie-rating"
@@ -23,7 +23,7 @@ const MovieCard = ({ movie }) => {
           {movie.vote_average.toFixed(1)}
         </h4>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`${movie.title} Poster`} />
-      </div>
+      </article>
       <Modal
         show={displayModal}
         onClose={() => setDisplayModal(false)}

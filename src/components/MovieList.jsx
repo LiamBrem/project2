@@ -48,8 +48,6 @@ const MovieList = ({ searchCriteria, sortCriteria }) => {
   const [movieData, setMovieData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
 
-  console.log("sortCriteria", sortCriteria);
-
   useEffect(() => {
    setMovieData([]);
     setPageNumber(1);

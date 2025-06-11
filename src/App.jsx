@@ -13,8 +13,6 @@ const App = () => {
     <div className="App">
       <div className="controls" >
         <Search onSearch={setSearch}/>
-
-
         <Sort value={sort} onChange={setSort} />
       </div>
       <MovieList searchCriteria={search} sortCriteria={sort} />

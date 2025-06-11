@@ -14,6 +14,8 @@
 
 .controls{
   display: flex;
+  border-bottom: 2px solid rgb(116, 116, 116);
+
 }
 
 @media (max-width: 600px) {

@@ -4,11 +4,31 @@
   margin: 10px;
   margin-right: 20px;
   margin-left: auto;
+  width: 20%;
 }
 
 .sort-container select {
   width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  padding: 8px 16px;
+  border: 2px solid #ba0303;
+  background-color: #232323;
+  color: #fff;
+  font-size: 1.1em;
+  font-family: monospace;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  appearance: none;
+  cursor: pointer;
+}
+
+.sort-container select:focus,
+.sort-container select:hover {
+  border-color: #ff3333;
+  box-shadow: 0 0 8px #ba0303;
+}
+
+.sort-container option {
+  background: #232323;
+  color: #fff;
 }

@@ -5,6 +5,8 @@ import "./MovieList.css";
 const fetchData = async (apiKey, pageNumber, searchString) => {
   let url = "";
 
+  
+  // if searchString is empty, use the url for the default movies, else fetch search data
   if (searchString === "" || searchString === undefined) {
     url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pageNumber}`;
   } else {
@@ -37,18 +39,16 @@ const sortMovies = (movies, sortCriteria) => {
   } else if (sortCriteria === "rating") {
     return [...movies].sort((a, b) => b.vote_average - a.vote_average);
   } else if (sortCriteria === "default") {
-    return movies; // Return unsorted movies for default option
+    return movies; 
   } else {
     console.warn("Unknown sort criteria:", sortCriteria);
-    return movies; // Fallback to unsorted movies
+    return movies; 
   }
 };
 
 const MovieList = ({ searchCriteria, sortCriteria }) => {
   const [movieData, setMovieData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-
-  console.log("sortCriteria", sortCriteria);
 
   useEffect(() => {
    setMovieData([]);
@@ -66,15 +66,18 @@ const MovieList = ({ searchCriteria, sortCriteria }) => {
       .catch((error) => console.error(error));
   }, [pageNumber, searchCriteria]);
 
+
+  // Use displayMovieData for movies being displayed
+  // This will ensure that movieData remains unchanged so it can be returned to for default sort
   const displayMovieData = sortMovies(movieData, sortCriteria);
 
   return (
     <div>
-      <div className="movie-list">
+      <section className="movie-list">
         {displayMovieData.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
-      </div>
+      </section>
       <div className="button-wrapper">
         <button
           className="load-more-button"

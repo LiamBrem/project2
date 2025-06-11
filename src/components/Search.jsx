@@ -1,6 +1,7 @@
 import React from "react";
 import "./Search.css";
 import { FaSearch } from "react-icons/fa";
+import { FaBackwardFast } from "react-icons/fa6";
 
 const Search = ({ onSearch }) => {
   const [input, setInput] = React.useState("");
@@ -23,6 +24,9 @@ const Search = ({ onSearch }) => {
         <button type="submit" className="search-button">
           <FaSearch />
         </button>
+        <button type="clear" className="clear-button" onClick={() => { setInput(""); onSearch(""); }}>
+          <FaBackwardFast />
+          </button>
       </form>
     </>
   );

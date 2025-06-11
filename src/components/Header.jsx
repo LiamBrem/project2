@@ -3,12 +3,12 @@ import "./Header.css";
 
 const Header = () => {
   return (
-    <header class="title-bg">
-      <div class="title-container">
-        <h1 class="title-text" data-text="FLIXSTER">
+    <header className="title-bg">
+      <div className="title-container">
+        <h1 className="title-text" data-text="FLIXSTER">
           FLIXSTER
         </h1>
-        <div class="rain"></div>
+        <div className="rain"></div>
       </div>
     </header>
   );

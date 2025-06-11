@@ -1,0 +1,19 @@
+.sidebar{
+    padding: 20px;
+    margin: 10px;
+    margin-left: 20px;
+    width: 75%;
+}
+
+.sidebar-element {
+    margin-bottom: 10px;
+    padding: 5px;
+
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar-element:hover {
+    color: rgb(231, 2, 2);
+    transform: scale(1.05);
+}

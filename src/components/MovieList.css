@@ -1,6 +1,8 @@
 .movie-list{
     display:flex;
     flex-wrap: wrap;
+    align-items: stretch;
+
 }
 
 .button-wrapper {
@@ -27,4 +29,7 @@
     background-color: #7b0000;
 }
 
-
+load-more-button:onclick {
+    transform: scale(.95);
+    transition: transform 0.1s ease-in-out;
+}

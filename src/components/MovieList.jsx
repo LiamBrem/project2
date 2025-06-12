@@ -5,7 +5,6 @@ import "./MovieList.css";
 const fetchData = async (apiKey, pageNumber, searchString) => {
   let url = "";
 
-  
   // if searchString is empty, use the url for the default movies, else fetch search data
   if (searchString === "" || searchString === undefined) {
     url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pageNumber}`;
@@ -39,19 +38,21 @@ const sortMovies = (movies, sortCriteria) => {
   } else if (sortCriteria === "rating") {
     return [...movies].sort((a, b) => b.vote_average - a.vote_average);
   } else if (sortCriteria === "default") {
-    return movies; 
+    return movies;
   } else {
     console.warn("Unknown sort criteria:", sortCriteria);
-    return movies; 
+    return movies;
   }
 };
 
-const MovieList = ({ searchCriteria, sortCriteria }) => {
+const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
   const [movieData, setMovieData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [favorites, setFavorites] = useState(new Set([]));
+  const [watched, setWatched] = useState(new Set([]));
 
   useEffect(() => {
-   setMovieData([]);
+    setMovieData([]);
     setPageNumber(1);
   }, [searchCriteria]);
 
@@ -66,27 +67,76 @@ const MovieList = ({ searchCriteria, sortCriteria }) => {
       .catch((error) => console.error(error));
   }, [pageNumber, searchCriteria]);
 
-
   // Use displayMovieData for movies being displayed
   // This will ensure that movieData remains unchanged so it can be returned to for default sort
-  const displayMovieData = sortMovies(movieData, sortCriteria);
+  let displayMovieData;
+  if (currentMode === "nowPlaying") {
+    displayMovieData = sortMovies(movieData, sortCriteria);
+    // if mode is favorites or watched, convert to an array to display
+  } else if (currentMode === "favorites") {
+    displayMovieData = sortMovies(Array.from(favorites), sortCriteria);
+  } else if (currentMode === "watched") {
+    displayMovieData = sortMovies(Array.from(watched), sortCriteria);
+  } else {
+    displayMovieData = [];
+  }
+
+  const toggleFavorite = (movie) => {
+    setFavorites((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(movie)) {
+        newSet.delete(movie);
+      } else {
+        newSet.add(movie);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleWatched = (movie) => {
+    setWatched((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(movie)) {
+        newSet.delete(movie);
+      } else {
+        newSet.add(movie);
+      }
+      return newSet;
+    });
+  };
 
   return (
-    <div>
+    <div className="movie-list-container">
       <section className="movie-list">
-        {displayMovieData.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+        {displayMovieData.length === 0 ? (
+          <h2>No movies to display</h2>
+        ) : (
+          displayMovieData.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              isFavorite={favorites.has(movie)}
+              isWatched={watched.has(movie)}
+              updateWatched={() => toggleWatched(movie)}
+              updateFavorites={() => toggleFavorite(movie)}
+            />
+          ))
+        )}
+      
       </section>
       <div className="button-wrapper">
-        <button
-          className="load-more-button"
-          onClick={() => {
-            setPageNumber((pageNumber) => pageNumber + 1);
-          }}
-        >
-          Load More
-        </button>
+        {currentMode === "nowPlaying" ? ( // Only show load more button for nowPlaying
+          <button
+            className="load-more-button"
+            onClick={() => {
+              setPageNumber((pageNumber) => pageNumber + 1);
+            }}
+          >
+            Load More
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

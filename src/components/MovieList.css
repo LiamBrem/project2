@@ -1,6 +1,22 @@
+.movie-list-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 65vh;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+
+}
 .movie-list{
     display:flex;
     flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.movie-list h1 {
+    text-align: center;
 }
 
 .button-wrapper {
@@ -27,4 +43,7 @@
     background-color: #7b0000;
 }
 
-
+load-more-button:onclick {
+    transform: scale(.95);
+    transition: transform 0.1s ease-in-out;
+}

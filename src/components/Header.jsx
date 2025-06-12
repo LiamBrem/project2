@@ -8,7 +8,6 @@ const Header = () => {
         <h1 className="title-text" data-text="FLIXSTER">
           FLIXSTER
         </h1>
-        <div className="rain"></div>
       </div>
     </header>
   );

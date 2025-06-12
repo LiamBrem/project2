@@ -2,7 +2,9 @@
     padding: 20px;
     margin: 10px;
     margin-left: 20px;
-    width: 75%;
+    margin-left: 1.25rem;
+    min-width:10%;
+    max-width: 10%;
 }
 
 .sidebar-element {
@@ -16,4 +18,10 @@
 .sidebar-element:hover {
     color: rgb(231, 2, 2);
     transform: scale(1.05);
+
+}
+
+.sidebar-element:hover h2 {
+    text-shadow: 0 4px 24px rgba(255, 0, 0, 0.8) !important;
+
 }

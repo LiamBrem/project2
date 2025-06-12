@@ -106,28 +106,37 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
   };
 
   return (
-    <div>
+    <div className="movie-list-container">
       <section className="movie-list">
-        {displayMovieData.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            isFavorite={favorites.has(movie)}
-            isWatched={watched.has(movie)}
-            updateWatched={() => toggleWatched(movie)}
-            updateFavorites={() => toggleFavorite(movie)}
-          />
-        ))}
+        {displayMovieData.length === 0 ? (
+          <h2>No movies to display</h2>
+        ) : (
+          displayMovieData.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              isFavorite={favorites.has(movie)}
+              isWatched={watched.has(movie)}
+              updateWatched={() => toggleWatched(movie)}
+              updateFavorites={() => toggleFavorite(movie)}
+            />
+          ))
+        )}
+      
       </section>
       <div className="button-wrapper">
-        <button
-          className="load-more-button"
-          onClick={() => {
-            setPageNumber((pageNumber) => pageNumber + 1);
-          }}
-        >
-          Load More
-        </button>
+        {currentMode === "nowPlaying" ? ( // Only show load more button for nowPlaying
+          <button
+            className="load-more-button"
+            onClick={() => {
+              setPageNumber((pageNumber) => pageNumber + 1);
+            }}
+          >
+            Load More
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

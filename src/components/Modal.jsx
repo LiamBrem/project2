@@ -103,41 +103,29 @@ const Modal = ({ show, onClose, movie }) => {
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <button className="close-button" onClick={onClose}>
-            <RiCloseLine size={24} />
-          </button>
-          <h2>{movie.title}</h2>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-            alt={`${movie.title} Backdrop`}
-            style={{ width: "100%" }}
-          />
-          <p>{movie.overview}</p>
-          <p>
-            <strong>Release Date:</strong> {movie.release_date}
-          </p>
-          <p>
-            <strong>Rating:</strong> {movie.vote_average}
-          </p>
-          <p>
-            <strong>Genres:</strong> {genres}
-          </p>
-          <p>
-            <strong>Runtime:</strong> {runtime}
-          </p>
-          {trailerURL ? (
-            <iframe
-              src={trailerURL.replace("watch?v=", "embed/")}
-              title="Movie Trailer"
-              width="100%"
-              height="315"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          ) : (
-            <p>Loading...</p>
-          )}
+        <div className="modal-content" onClick={e => e.stopPropagation()}>
+          <button className="close-button" onClick={onClose}>×</button>
+          <div className="modal-left">
+            <h2>{movie.title}</h2>
+            <div className="modal-details">
+              <p><strong>Release Date:</strong> {movie.release_date}</p>
+              <p><strong>Rating:</strong> {movie.vote_average}</p>
+              <p><strong>Genres:</strong> {genres}</p>
+              <p><strong>Runtime:</strong> {runtime}</p>
+            </div>
+            <div className="overview">{movie.overview}</div>
+          </div>
+          <div className="modal-right">
+            <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={`${movie.title} Backdrop`} />
+            {trailerURL && (
+              <iframe
+                src={trailerURL.replace("watch?v=", "embed/")}
+                title="Movie Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
         </div>
       </div>
     </>

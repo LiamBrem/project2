@@ -11,7 +11,7 @@ const SideBar = ({ onChange }) => {
         className="sidebar-element"
         onClick={() => handleModeChange("nowPlaying")}
       >
-        <h2>Now Playing</h2>
+        <h2>Home</h2>
       </div>
       <div
         className="sidebar-element"

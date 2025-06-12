@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import "./MovieCard.css";
+import { useState } from "react";
 import Modal from "./Modal";
+import "./MovieCard.css";
 
 import {
   VscHeart,
@@ -9,11 +9,13 @@ import {
   VscEyeClosed,
 } from "react-icons/vsc";
 
-// determine the color based on the rating (0-10)
+// formula to determine text color based on the rating (0-10)
 const getColor = (rating) => {
   const value = Math.max(0, Math.min(10, rating));
-  const hue = (value / 10) * 100;
-  return `hsl(${hue}, 75%, 45%)`;
+  const r = Math.round(255 - (value / 10) * 255);
+  const g = Math.round((value / 10) * 180); // don't want the green to be as bright as red
+  const b = 0;
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 const MovieCard = ({
@@ -23,7 +25,7 @@ const MovieCard = ({
   updateWatched,
   updateFavorites,
 }) => {
-  const [displayModal, setDisplayModal] = React.useState(false);
+  const [displayModal, setDisplayModal] = useState(false);
 
   return (
     <>

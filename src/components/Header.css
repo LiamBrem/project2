@@ -1,8 +1,4 @@
-body {
-  background: #000;
-  margin: 0;
-}
-
+/* For the title effect */
 .title-container {
   position: relative;
   display: flex;
@@ -12,33 +8,35 @@ body {
   overflow: hidden;
 }
 
+
 .title-text {
-  color: rgb(231, 2, 2);
-  font-size: 48px;           /* Reduced from 80px */
+  color: rgb(216, 0, 0);
+  font-size: 48px;          
   font-family: monospace;
   position: relative;
-  text-shadow: 0 0 10px rgb(154, 0, 0), 0 0 20px rgb(154, 0, 0), 0 0 30px rgb(154, 0, 0);
+  text-shadow: 0 0 20px rgb(255, 0, 0);
   z-index: 2;
-  line-height: 1.1;          /* Tighter vertical spacing */
-  letter-spacing: 0.25em;    /* Spread letters out */
-  margin: 0;                 /* Remove extra margin if any */
+  line-height: 1.1;          
+  letter-spacing: 0.25em;    
+  margin: 0;                 
   padding: 0;
   margin-top: 20px;
   margin-bottom: 15px;
+  animation: animate 2s infinite linear alternate-reverse;
 }
 
-.title-text::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  animation: glitch 2s infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  transform: translate(-2px, -2px);
-  color: rgb(154, 0, 0);
-  text-shadow: 0 0 5px rgb(154, 0, 0), 0 0 15px rgb(154, 0, 0);
+@keyframes animate {
+  0% { transform: none; opacity: 1; }
+  7% { transform: skew(-2deg, 0deg) scaleY(1.1); opacity: 0.8; }
+  10% { transform: translate(-2px, 2px) skew(2deg, 0deg); opacity: 0.9; }
+  13% { transform: translate(2px, -1px) skew(-1deg, 0deg); opacity: 0.7; }
+  20% { transform: none; opacity: 1; }
+  25% { transform: translate(-3px, 1px) skew(1deg, 0deg); opacity: 0.8; }
+  30% { transform: translate(3px, -2px) skew(-2deg, 0deg); opacity: 0.9; }
+  35% { transform: none; opacity: 1; }
+  40% { transform: translate(-1px, 2px) skew(1deg, 0deg); opacity: 0.8; }
+  45% { transform: translate(2px, -1px) skew(-1deg, 0deg); opacity: 0.7; }
+  50% { transform: none; opacity: 1; }
+  100% { transform: none; opacity: .6; }
 }
-
 

@@ -5,8 +5,8 @@
     align-items: center;
     width: 100%;
     padding: 1rem;
-
 }
+
 .movie-list{
     display:flex;
     flex-wrap: wrap;

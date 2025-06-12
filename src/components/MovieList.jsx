@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import "./MovieList.css";
 
@@ -125,7 +125,7 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
       
       </section>
       <div className="button-wrapper">
-        {currentMode === "nowPlaying" ? ( // Only show load more button for nowPlaying
+        {currentMode === "nowPlaying" ? ( // Only show load more button for nowPlaying mode
           <button
             className="load-more-button"
             onClick={() => {

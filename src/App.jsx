@@ -1,12 +1,11 @@
 import { useState } from "react";
-import "./App.css";
 import MovieList from "./components/MovieList";
-//import Search from "./components/Search";
 import Sort from "./components/Sort";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SideBar from "./components/SideBar";
+import "./App.css";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -19,7 +18,7 @@ const App = () => {
         <Header />
         <div className="controls">
           <Search onSearch={setSearch} />
-          <Sort value={sort} onChange={setSort} />
+          <Sort value={sort} onSort={setSort} />
         </div>
         <div className="rain"></div>
       </header>

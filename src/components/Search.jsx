@@ -1,10 +1,10 @@
-import React from "react";
-import "./Search.css";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaBackwardFast } from "react-icons/fa6";
+import "./Search.css";
 
 const Search = ({ onSearch }) => {
-  const [input, setInput] = React.useState("");
+  const [input, setInput] = useState("");
 
   const submitSearch = (e) => {
     e.preventDefault();
@@ -24,9 +24,16 @@ const Search = ({ onSearch }) => {
         <button type="submit" className="search-button">
           <FaSearch />
         </button>
-        <button type="clear" className="clear-button" onClick={() => { setInput(""); onSearch(""); }}>
+        <button
+          type="clear"
+          className="clear-button"
+          onClick={() => {
+            setInput("");
+            onSearch("");
+          }}
+        >
           <FaBackwardFast />
-          </button>
+        </button>
       </form>
     </>
   );

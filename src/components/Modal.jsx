@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import "./Modal.css";
+import { useState, useEffect } from "react";
 import { RiCloseLine } from "react-icons/ri";
+import "./Modal.css";
 
+// Api call for the movie runtime
 const getRuntime = async (id) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${id}$language=en-US`;
@@ -22,8 +23,7 @@ const getRuntime = async (id) => {
   return data.runtime ? `${data.runtime} minutes` : "Unknown Runtime";
 };
 
-// This calls the API each time the modal is opened
-// Since it returns the same object every time, it may be useful to only call it once
+// Api call for the list of genres
 const getGenres = async (genreIds) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
@@ -47,7 +47,7 @@ const getGenres = async (genreIds) => {
       result.push(genre.name);
     }
   });
-  return result.length > 0 ? result.join(", ") : "Unknown Genre"; // return a string of genres
+  return result.length > 0 ? result.join(", ") : "No Genres"; // return a string of genres
 };
 
 const getTrailerURL = async (id) => {
@@ -73,9 +73,9 @@ const getTrailerURL = async (id) => {
 };
 
 const Modal = ({ show, onClose, movie }) => {
-  const [genres, setGenres] = React.useState("Loading...");
-  const [runtime, setRuntime] = React.useState("Loading...");
-  const [trailerURL, setTrailerURL] = React.useState(null);
+  const [genres, setGenres] = useState("Loading...");
+  const [runtime, setRuntime] = useState("Loading...");
+  const [trailerURL, setTrailerURL] = useState(null);
 
   useEffect(() => {
     if (show && movie?.genre_ids) {
@@ -83,7 +83,7 @@ const Modal = ({ show, onClose, movie }) => {
         .then(setGenres)
         .catch(() => setGenres("Unknown Genre"));
     }
-  }, [show, movie]);
+  }, [show]);
 
   useEffect(() => {
     if (show) {
@@ -94,7 +94,7 @@ const Modal = ({ show, onClose, movie }) => {
         .then(setTrailerURL)
         .catch(() => setTrailerURL(null));
     }
-  }, [show, movie]);
+  }, [show]);
 
   if (!show) {
     return null; // don't render anything if displayModal is false
@@ -103,26 +103,37 @@ const Modal = ({ show, onClose, movie }) => {
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content" onClick={e => e.stopPropagation()}>
-          <button className="close-button" onClick={onClose}>×</button>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <RiCloseLine className="close-button" onClick={onClose} />
           <div className="modal-left">
             <h2>{movie.title}</h2>
             <div className="modal-details">
-              <p><strong>Release Date:</strong> {movie.release_date}</p>
-              <p><strong>Rating:</strong> {movie.vote_average}</p>
-              <p><strong>Genres:</strong> {genres}</p>
-              <p><strong>Runtime:</strong> {runtime}</p>
+              <p>
+                <strong>Release Date:</strong> {movie.release_date}
+              </p>
+              <p>
+                <strong>Rating:</strong> {movie.vote_average}
+              </p>
+              <p>
+                <strong>Genres:</strong> {genres}
+              </p>
+              <p>
+                <strong>Runtime:</strong> {runtime}
+              </p>
             </div>
             <div className="overview">{movie.overview}</div>
           </div>
           <div className="modal-right">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={`${movie.title} Backdrop`} />
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+              alt={`${movie.title} Backdrop`}
+            />
             {trailerURL && (
               <iframe
                 src={trailerURL.replace("watch?v=", "embed/")}
-                title="Movie Trailer"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                title="Movie Trailer"
+                alt="Movie Trailer"
               ></iframe>
             )}
           </div>

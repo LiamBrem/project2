@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import getTMDBOptions from "../../utils/tmdbOptions";
 import MovieCard from "./MovieCard";
 import "./MovieList.css";
 
@@ -12,15 +13,7 @@ const fetchData = async (apiKey, pageNumber, searchString) => {
     url = `https://api.themoviedb.org/3/search/movie?query=${searchString}&include_adult=false&language=en-US&page=${pageNumber}`;
   }
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-  };
-
-  const response = await fetch(url, options);
+  const response = await fetch(url, getTMDBOptions());
   if (!response.ok) {
     throw new Error("Failed to fetch movie data");
   }
@@ -105,6 +98,18 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
     });
   };
 
+  const loadMoreButton =
+    currentMode === "nowPlaying" ? (
+      <button
+        className="load-more-button"
+        onClick={() => {
+          setPageNumber((pageNumber) => pageNumber + 1);
+        }}
+      >
+        Load More
+      </button>
+    ) : null;
+
   return (
     <div className="movie-list-container">
       <section className="movie-list">
@@ -122,22 +127,8 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
             />
           ))
         )}
-      
       </section>
-      <div className="button-wrapper">
-        {currentMode === "nowPlaying" ? ( // Only show load more button for nowPlaying mode
-          <button
-            className="load-more-button"
-            onClick={() => {
-              setPageNumber((pageNumber) => pageNumber + 1);
-            }}
-          >
-            Load More
-          </button>
-        ) : (
-          <></>
-        )}
-      </div>
+      <div className="button-wrapper">{loadMoreButton}</div>
     </div>
   );
 };

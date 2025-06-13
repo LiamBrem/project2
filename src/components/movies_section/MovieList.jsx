@@ -26,7 +26,7 @@ const sortMovies = (movies, sortCriteria) => {
     return [...movies].sort((a, b) => a.title.localeCompare(b.title));
   } else if (sortCriteria === "release_date") {
     return [...movies].sort(
-      (a, b) => new Date(a.release_date) - new Date(b.release_date)
+      (a, b) => new Date(b.release_date) - new Date(a.release_date)
     );
   } else if (sortCriteria === "rating") {
     return [...movies].sort((a, b) => b.vote_average - a.vote_average);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import getTMDBOptions from "../../utils/tmdbOptions";
 import MovieCard from "./MovieCard";
+import { SORT_OPTIONS, MODES } from "../../utils/constants";
 import "./MovieList.css";
 
 const fetchData = async (apiKey, pageNumber, searchString) => {
@@ -65,12 +66,12 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
   // Use displayMovieData for movies being displayed
   // This will ensure that movieData remains unchanged so it can be returned to for default sort
   let displayMovieData;
-  if (currentMode === "nowPlaying") {
+  if (currentMode === MODES.NOW_PLAYING) {
     displayMovieData = sortMovies(movieData, sortCriteria);
     // if mode is favorites or watched, convert to an array to display
-  } else if (currentMode === "favorites") {
+  } else if (currentMode === MODES.FAVORITES) {
     displayMovieData = sortMovies(Array.from(favorites), sortCriteria);
-  } else if (currentMode === "watched") {
+  } else if (currentMode === MODES.WATCHED) {
     displayMovieData = sortMovies(Array.from(watched), sortCriteria);
   } else {
     displayMovieData = [];
@@ -101,7 +102,7 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
   };
 
   const loadMoreButton =
-    currentMode === "nowPlaying" ? (
+    currentMode === MODES.NOW_PLAYING ? (
       <button
         className="load-more-button"
         onClick={() => {

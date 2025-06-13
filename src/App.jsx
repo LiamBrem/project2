@@ -5,12 +5,13 @@ import Search from "./components/control_sections/Search";
 import Header from "./components/control_sections/Header";
 import Footer from "./components/control_sections/Footer";
 import SideBar from "./components/control_sections/SideBar";
+import { SORT_OPTIONS, MODES } from "./utils/constants";
 import "./App.css";
 
 const App = () => {
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("default");
-  const [currentMode, setCurrentMode] = useState("nowPlaying");
+  const [sort, setSort] = useState(SORT_OPTIONS.DEFAULT);
+  const [currentMode, setCurrentMode] = useState(MODES.NOW_PLAYING);
 
   return (
     <div className="App">

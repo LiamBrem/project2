@@ -1,10 +1,10 @@
 import { useState } from "react";
-import MovieList from "./components/MovieList";
-import Sort from "./components/Sort";
-import Search from "./components/Search";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SideBar from "./components/SideBar";
+import MovieList from "./components/movies_section/MovieList";
+import Sort from "./components/control_sections/Sort";
+import Search from "./components/control_sections/Search";
+import Header from "./components/control_sections/Header";
+import Footer from "./components/control_sections/Footer";
+import SideBar from "./components/control_sections/SideBar";
 import "./App.css";
 
 const App = () => {

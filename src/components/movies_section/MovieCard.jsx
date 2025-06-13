@@ -27,16 +27,17 @@ const MovieCard = ({
 }) => {
   const [displayModal, setDisplayModal] = useState(false);
 
+  const { poster_path, title, vote_average } = movie;
+
   return (
     <>
       <article className="movie-card" onClick={() => setDisplayModal(true)}>
-        
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={`${movie.title} Poster`}
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt={`${title} Poster`}
         />
         <div className="movie-card-header">
-          <h1 className="movie-title">{movie.title}</h1>
+          <h1 className="movie-title">{title}</h1>
           <div className="bottom-card-row">
             <div
               className={`favorite-button ${isFavorite ? "active" : ""}`}
@@ -50,9 +51,9 @@ const MovieCard = ({
 
             <h4
               className="movie-rating"
-              style={{ color: getColor(movie.vote_average) }}
+              style={{ color: getColor(vote_average) }}
             >
-              {movie.vote_average.toFixed(1)}
+              {vote_average.toFixed(1)}
             </h4>
             <div
               className={`watched-button ${isWatched ? "active" : ""}`}

@@ -50,15 +50,17 @@ const MovieList = ({ searchCriteria, sortCriteria, currentMode }) => {
   }, [searchCriteria]);
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-    fetchData(apiKey, pageNumber, searchCriteria)
-      .then((data) => {
-        const combinedMovieArrays =
-          pageNumber === 1 ? data.results : [...movieData, ...data.results];
-        setMovieData((movieData) => combinedMovieArrays);
-      })
-      .catch((error) => console.error(error));
-  }, [pageNumber, searchCriteria]);
+  const apiKey = import.meta.env.VITE_API_KEY;
+  fetchData(apiKey, pageNumber, searchCriteria)
+    .then((data) => {
+      if (pageNumber === 1) {
+        setMovieData(data.results);
+      } else {
+        setMovieData((prev) => [...prev, ...data.results]);
+      }
+    })
+    .catch((error) => console.error(error));
+}, [pageNumber, searchCriteria]);
 
   // Use displayMovieData for movies being displayed
   // This will ensure that movieData remains unchanged so it can be returned to for default sort

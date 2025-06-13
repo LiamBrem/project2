@@ -2,7 +2,7 @@
 
 Submitted by: **Liam Brem**
 
-Estimated time spent: **15** hours spent in total
+Estimated time spent: **16.5** hours spent in total
 
 Deployed Application (**required**): [Flixster Deployed Site](https://project2-flixster.onrender.com/)
 
@@ -100,7 +100,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://project2-f
 
 ### Walkthrough Video
 
-https://www.loom.com/share/98c42d36cabc474486b15be658fc18ff?sid=bb972764-ed1e-48ba-bc99-9e010c04005e
+https://www.loom.com/share/491f5b71fff643fdb1d277847a5e456a?sid=32425a77-6cc3-4a02-ab1b-21ce8fabb64d
 
 ### Reflection
 
